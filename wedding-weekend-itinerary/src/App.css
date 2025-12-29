@@ -1,75 +1,188 @@
+:root {
+  --red: #c81e2b;
+  --black: #111111;
+  --paper: #ffffff;
+  --blush: #fde8ee;
+  --blush2: #fff6f8;
+  --line: rgba(17, 17, 17, 0.14);
+  --shadow: 0 10px 24px rgba(17, 17, 17, 0.12);
+  --shadow2: 0 6px 0 rgba(17, 17, 17, 0.12);
+}
+
+/* whole page = blush + paper */
+body {
+  margin: 0;
+  font-family: "Quicksand", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--black);
+  background:
+    radial-gradient(900px 520px at 15% -10%, rgba(200, 30, 43, 0.10), transparent 55%),
+    radial-gradient(900px 520px at 85% 10%, rgba(200, 30, 43, 0.07), transparent 55%),
+    linear-gradient(180deg, var(--blush2), var(--blush));
+}
+
 .app {
-  max-width: 720px;
+  max-width: 760px;
   margin: 0 auto;
-  padding: 20px;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  padding: 18px;
+}
+
+/* cute header like a “label” */
+.header {
+  background: var(--paper);
+  border: 2px solid var(--black);
+  border-radius: 22px;
+  box-shadow: var(--shadow), var(--shadow2);
+  padding: 18px 18px 14px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* doodle corner accents (simple + cute) */
+.header::before,
+.header::after {
+  position: absolute;
+  color: rgba(200, 30, 43, 0.25);
+  font-size: 28px;
+  line-height: 1;
+}
+.header::before {
+  content: "♦ ♣";
+  top: 10px;
+  left: 14px;
+}
+.header::after {
+  content: "♥ ♠";
+  bottom: 10px;
+  right: 14px;
 }
 
 .header h1 {
   margin: 0;
-  font-size: 2rem;
+  font-family: "Pacifico", cursive;
+  color: var(--red);
+  font-size: 2.05rem;
+  letter-spacing: 0.2px;
 }
 
 .header p {
   margin: 6px 0 0;
-  opacity: 0.8;
+  font-weight: 600;
+  opacity: 0.75;
 }
 
+/* day buttons like chunky “tabs” */
 .day-picker {
   display: flex;
   gap: 10px;
-  margin: 18px 0 22px;
+  margin: 16px 0 18px;
 }
 
 .day-btn {
   flex: 1;
   padding: 10px 12px;
-  border-radius: 12px;
-  border: 1px solid #ddd;
-  background: #fff;
+  border-radius: 999px;
+  border: 2px solid var(--black);
+  background: var(--paper);
+  color: var(--black);
+  font-weight: 700;
   cursor: pointer;
+  box-shadow: 0 4px 0 rgba(17, 17, 17, 0.18);
+  transition: transform 110ms ease, box-shadow 110ms ease;
 }
 
 .day-btn:hover {
-  background: #f5f5f5;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 0 rgba(17, 17, 17, 0.18);
 }
 
 .day-btn.active {
-  border-color: #111;
-  background: #111;
+  background: var(--red);
   color: #fff;
 }
 
+/* section title */
 .events h2 {
   margin: 0 0 12px;
-  font-size: 1.25rem;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
 }
 
+/* cards that look like “printed merch” (border + playful shadow) */
 .event-card {
   display: flex;
   gap: 14px;
-  padding: 14px;
-  border: 1px solid #eee;
-  border-radius: 16px;
-  background: #fff;
+  padding: 16px;
+  border-radius: 22px;
+  background: var(--paper);
+  border: 2px solid var(--black);
+  box-shadow: var(--shadow2);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 14px;
 }
 
+/* tiny doodle stamp on each card */
+.event-card::before {
+  content: "🎲";
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  opacity: 0.35;
+  transform: rotate(8deg);
+}
+
+/* time pill */
 .event-time {
-  min-width: 76px;
-  font-weight: 600;
+  min-width: 118px;
+  align-self: flex-start;
+  padding: 10px 10px;
+  border-radius: 16px;
+  border: 2px solid var(--black);
+  background: rgba(200, 30, 43, 0.08);
+  font-weight: 800;
+  text-align: center;
+}
+
+/* event text */
+.event-info h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.25;
 }
 
 .event-location {
-  margin: 4px 0 0;
-  opacity: 0.85;
-}
-
-.event-notes {
   margin: 6px 0 0;
-  font-size: 0.9rem;
-  opacity: 0.7;
+  font-weight: 600;
+  opacity: 0.75;
 }
 
 .empty {
-  opacity: 0.7;
+  opacity: 0.75;
+}
+
+/* mobile: keep it cute + readable */
+@media (max-width: 520px) {
+  .app {
+    padding: 14px;
+  }
+
+  .day-picker {
+    gap: 8px;
+  }
+
+  .day-btn {
+    padding: 10px 8px;
+    font-size: 0.95rem;
+  }
+
+  .event-card {
+    flex-direction: column;
+  }
+
+  .event-time {
+    min-width: unset;
+    width: fit-content;
+  }
 }

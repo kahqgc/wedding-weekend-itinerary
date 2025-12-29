@@ -3,6 +3,12 @@ import { useState, useEffect } from "react";
 import { fetchSheetRows } from "./api/fetchItineraryFromSheet";
 
 const SHEET_TAB_NAME = "VEGAS_WEDDING_MASTER_SCHEDULE_SPA_FRIDAY";
+const DAY_LABELS = {
+  Thursday: "Thu",
+  Friday: "Fri",
+  Saturday: "Sat",
+  Sunday: "Sun",
+};
 
 function App() {
   // VEGAS_WEDDING_MASTER_SCHEDULE_SPA_FRIDAY
@@ -47,7 +53,7 @@ function App() {
                   className={day === selectedDay ? "day-btn active" : "day-btn"}
                   onClick={() => setSelectedDay(day)}
                 >
-                  {day}
+                  {DAY_LABELS[day]}
                 </button>
               ))}
             </section>
@@ -67,9 +73,10 @@ function App() {
 
                     <div className="event-info">
                       <h3>{r.Event}</h3>
-
-                      {/* Optional: show date if you want it */}
-                      {/* <p className="event-location">{r.Date}</p> */}
+                      {r.Location && (
+                        <p className="event-location">{r.Location}</p>
+                      )}
+                      <p className="event-location">{r.Date}</p>
                     </div>
                   </article>
                 ))
