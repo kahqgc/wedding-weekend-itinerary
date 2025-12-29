@@ -21,7 +21,7 @@
   margin: 18px 0 22px;
 }
 
-.day-picker button {
+.day-btn {
   flex: 1;
   padding: 10px 12px;
   border-radius: 12px;
@@ -30,8 +30,14 @@
   cursor: pointer;
 }
 
-.day-picker button:hover {
+.day-btn:hover {
   background: #f5f5f5;
+}
+
+.day-btn.active {
+  border-color: #111;
+  background: #111;
+  color: #fff;
 }
 
 .events h2 {
@@ -61,5 +67,9 @@
 .event-notes {
   margin: 6px 0 0;
   font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+.empty {
   opacity: 0.7;
 }
