@@ -1,8 +1,19 @@
-
-import './App.css'
+import "./App.css";
+import { useState, useEffect } from "react";
+import { fetchSheetRows } from "./api/fetchItineraryFromSheet";
 
 function App() {
-    return (
+  // VEGAS_WEDDING_MASTER_SCHEDULE_SPA_FRIDAY
+  const [rows, setRows] = useState([]);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    fetchSheetRows("VEGAS_WEDDING_MASTER_SCHEDULE_SPA_FRIDAY")
+      .then((data) => setRows(data))
+      .catch((err) => setError(err.message || "Failed to load sheet"));
+  }, []);
+
+  return (
     <div className="app">
       <header className="header">
         <h1>Vegas Weekend Itinerary</h1>
@@ -29,9 +40,22 @@ function App() {
             </div>
           </article>
         </section>
+        {error ? (
+          <p style={{ color: "crimson" }}>Error: {error}</p>
+        ) : rows.length === 0 ? (
+          <p>Loading…</p>
+        ) : (
+          <ul>
+            {rows.slice(0, 5).map((r, i) => (
+              <li key={i}>
+                <strong>{r.Day}</strong> — {r.Time} — {r.Event}
+              </li>
+            ))}
+          </ul>
+        )}
       </main>
     </div>
   );
 }
 
-export default App
+export default App;
