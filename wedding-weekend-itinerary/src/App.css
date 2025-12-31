@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 :root {
   --red: #c81e2b;
   --black: #111111;
@@ -9,24 +13,44 @@
   --shadow2: 0 6px 0 rgba(17, 17, 17, 0.12);
 }
 
-/* whole page = blush + paper */
 body {
   margin: 0;
-  font-family: "Quicksand", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  overflow: hidden;
+  font-family: "Quicksand", system-ui, -apple-system, Segoe UI, Roboto, Arial,
+    sans-serif;
   color: var(--black);
-  background:
-    radial-gradient(900px 520px at 15% -10%, rgba(200, 30, 43, 0.10), transparent 55%),
-    radial-gradient(900px 520px at 85% 10%, rgba(200, 30, 43, 0.07), transparent 55%),
+  background: #f4f4f4;
+}
+.app,
+.main {
+  display: flex;
+  flex-direction: column;
+}
+.app {
+  height: 100dvh;
+  width: 100%;
+  padding: 14px;
+  overflow: hidden;
+  background: radial-gradient(
+      900px 520px at 15% -10%,
+      rgba(200, 30, 43, 0.1),
+      transparent 55%
+    ),
+    radial-gradient(
+      900px 520px at 85% 10%,
+      rgba(200, 30, 43, 0.07),
+      transparent 55%
+    ),
     linear-gradient(180deg, var(--blush2), var(--blush));
 }
 
-.app {
-  max-width: 760px;
-  margin: 0 auto;
-  padding: 18px;
+.main {
+  flex: 1;
+  min-height: 0;
+  gap: 12px;
 }
 
-/* cute header like a “label” */
+/* cute header like a label */
 .header {
   background: var(--paper);
   border: 2px solid var(--black);
@@ -35,6 +59,7 @@ body {
   padding: 18px 18px 14px;
   position: relative;
   overflow: hidden;
+  flex: 0 0 auto;
 }
 
 /* doodle corner accents (simple + cute) */
@@ -70,11 +95,11 @@ body {
   opacity: 0.75;
 }
 
-/* day buttons like chunky “tabs” */
 .day-picker {
   display: flex;
   gap: 10px;
   margin: 16px 0 18px;
+  flex: 0 0 auto;
 }
 
 .day-btn {
@@ -109,7 +134,6 @@ body {
   opacity: 0.7;
 }
 
-/* cards that look like “printed merch” (border + playful shadow) */
 .event-card {
   display: flex;
   gap: 14px;
@@ -123,26 +147,23 @@ body {
   margin-bottom: 14px;
 }
 
-/* tiny doodle stamp on each card */
-.event-card::before {
-  content: "🎲";
-  position: absolute;
-  top: 10px;
-  right: 12px;
-  opacity: 0.35;
-  transform: rotate(8deg);
+/* time pill – soft blush tag */
+.event-time {
+  min-width: 104px;
+  align-self: flex-start;
+  padding: 8px 12px;
+  border-radius: 14px;
+  /*border: 2px solid var(--black); */
+  background: var(--blush2);
+  color: var(--black);
+  font-weight: 800;
+  font-size: 0.9rem;
+  text-align: center;
 }
 
-/* time pill */
-.event-time {
-  min-width: 118px;
-  align-self: flex-start;
-  padding: 10px 10px;
-  border-radius: 16px;
-  border: 2px solid var(--black);
-  background: rgba(200, 30, 43, 0.08);
-  font-weight: 800;
-  text-align: center;
+
+.event-info {
+  min-width: 0;
 }
 
 /* event text */
@@ -150,6 +171,8 @@ body {
   margin: 0;
   font-size: 1.05rem;
   line-height: 1.25;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .event-location {
@@ -164,10 +187,6 @@ body {
 
 /* mobile: keep it cute + readable */
 @media (max-width: 520px) {
-  .app {
-    padding: 14px;
-  }
-
   .day-picker {
     gap: 8px;
   }
