@@ -1,6 +1,9 @@
 import "./App.css";
 import { useState, useEffect } from "react";
 import { fetchSheetRows } from "./api/fetchItineraryFromSheet";
+import DayPicker from "./components/DayPicker";
+import EventCard from "./components/EventCard";
+import Pager from "./components/Pager";
 
 const SHEET_TAB_NAME = "VEGAS_WEDDING_MASTER_SCHEDULE_SPA_FRIDAY";
 const DAY_LABELS = {
@@ -8,6 +11,7 @@ const DAY_LABELS = {
   Friday: "Fri",
   Saturday: "Sat",
   Sunday: "Sun",
+  Monday: "Mon",
 };
 
 function App() {
@@ -26,14 +30,19 @@ function App() {
   const dayOrder = ["Thursday", "Friday", "Saturday", "Sunday"];
 
   const uniqueDays = [
-    ...new Set(rows.filter((r) => r.Day !== "Monday" && r.Day !== "Thursday").map((r) => r.Day)),
+    ...new Set(
+      rows
+        .filter((r) => r.Day !== "Monday" && r.Day !== "Thursday")
+        .map((r) => r.Day)
+    ),
   ].sort((a, b) => dayOrder.indexOf(a) - dayOrder.indexOf(b));
 
   const visibleRows = rows.filter(
     (r) => r.Day === selectedDay && r.Who === "Everyone"
   );
 
-  const current = visibleRows[activeIndex];
+  const safeIndex = visibleRows.length === 0 ? 0 : Math.min(activeIndex, visibleRows.length - 1);
+  const event = visibleRows[safeIndex];
 
   return (
     <div className="app">
@@ -48,21 +57,15 @@ function App() {
           <p>Loading…</p>
         ) : (
           <>
-            <section className="day-picker">
-              {uniqueDays.map((day) => (
-                <button
-                  key={day}
-                  type="button"
-                  className={day === selectedDay ? "day-btn active" : "day-btn"}
-                  onClick={() => {
-                    setSelectedDay(day);
-                    setActiveIndex(0);
-                  }}
-                >
-                  {DAY_LABELS[day]}
-                </button>
-              ))}
-            </section>
+            <DayPicker
+              days={uniqueDays}
+              selectedDay={selectedDay}
+              labels={DAY_LABELS}
+              onSelectDay={(day) => {
+                setSelectedDay(day);
+                setActiveIndex(0);
+              }}
+            />
             <section className="events">
               <h2>{selectedDay}</h2>
 
@@ -70,45 +73,17 @@ function App() {
                 <p className="empty">Nothing listed for guests this day yet.</p>
               ) : (
                 <>
-                  <article className="event-card">
-                    <div className="event-time">{current?.Time}</div>
-
-                    <div className="event-info">
-                      <h3>{current?.Event}</h3>
-                      {current?.Location && (
-                        <p className="event-location">{current.Location}</p>
-                      )}
-                      {current?.Date && (
-                        <p className="event-location">{current.Date}</p>
-                      )}
-                    </div>
-                  </article>
-
-                  <div className="pager">
-                    <button
-                      className="pager-btn"
-                      onClick={() => setActiveIndex((i) => Math.max(0, i - 1))}
-                      disabled={activeIndex === 0}
-                    >
-                      ← Prev
-                    </button>
-
-                    <span className="pager-count">
-                      {activeIndex + 1} / {visibleRows.length}
-                    </span>
-
-                    <button
-                      className="pager-btn"
-                      onClick={() =>
-                        setActiveIndex((i) =>
-                          Math.min(visibleRows.length - 1, i + 1)
-                        )
-                      }
-                      disabled={activeIndex === visibleRows.length - 1}
-                    >
-                      Next →
-                    </button>
-                  </div>
+                  <EventCard event={event} />
+                  <Pager
+                    index={safeIndex}
+                    total={visibleRows.length}
+                    onPrev={() => setActiveIndex((i) => Math.max(0, i - 1))}
+                    onNext={() =>
+                      setActiveIndex((i) =>
+                        Math.min(visibleRows.length - 1, i + 1)
+                      )
+                    }
+                  />
                 </>
               )}
             </section>
