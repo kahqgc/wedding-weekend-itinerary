@@ -1,3 +1,5 @@
+import "./EventCard.css";
+
 export default function EventCard({event}){
     if (!event) return null;
     return (

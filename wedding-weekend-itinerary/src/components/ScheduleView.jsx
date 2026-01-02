@@ -1,3 +1,4 @@
+import "./ScheduleView.css";
 import { useEffect, useMemo, useState } from "react";
 import { fetchSheetRows } from "../api/fetchItineraryFromSheet";
 import DayPicker from "../components/DayPicker";

@@ -1,0 +1,32 @@
+.bottom-nav {
+  position:fixed;
+  display: flex;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  padding: 10px;
+  background: var(--blush);
+  border-top: 2px solid rgba(17, 17, 17, 0.12);
+  box-shadow: 0 -10px 24px rgba(17, 17, 17, 0.10);
+}
+
+.nav-btn {
+  border: 2px solid var(--black);
+  background: var(--paper);
+  border-radius: 999px;
+  padding: 10px 8px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 0 rgba(17, 17, 17, 0.18);
+  text-overflow: ellipsis;
+}
+
+.nav-btn.active {
+  background: var(--red);
+  color: #fff;
+}

@@ -1,0 +1,43 @@
+.event-card {
+  display: flex;
+  gap: 14px;
+  padding: 16px;
+  border-radius: 22px;
+  background: var(--paper);
+  border: 2px solid var(--black);
+  box-shadow: var(--shadow2);
+  margin-bottom: 14px;
+}
+
+/* time pill – soft blush tag */
+.event-time {
+  min-width: 104px;
+  align-self: flex-start;
+  padding: 8px 12px;
+  border-radius: 14px;
+  background: var(--blush2);
+  color: var(--black);
+  font-weight: 800;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* event text */
+.event-info h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.25;
+}
+
+.event-location {
+  margin: 6px 0 0;
+  font-weight: 600;
+  opacity: 0.75;
+}
+
+/* list wrapper */
+.event-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}

@@ -1,3 +1,5 @@
+import "./BottomNav.css";
+
 export default function BottomNav({ activeTab, onChange }) {
   return (
     <nav className="bottom-nav">

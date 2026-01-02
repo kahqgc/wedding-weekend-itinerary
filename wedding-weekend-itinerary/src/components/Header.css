@@ -1,0 +1,36 @@
+/* cute header like a label */
+.header {
+  position: relative;
+  background: var(--paper);
+  border: 2px solid var(--black);
+  border-radius: 22px;
+  box-shadow: var(--shadow), var(--shadow2);
+  padding: 18px 18px 14px;
+}
+
+/* doodle corner accents (simple + cute) */
+.header::before {
+  position: absolute;
+  padding-left: 10px;
+  color: rgba(200, 30, 43, 0.25);
+  font-size: 28px;
+  line-height: 1.5;
+}
+.header::before {
+  content: "♦ ♣";
+  top: 10px;
+  left: 14px;
+}
+
+.header h1 {
+  margin: 0;
+  font-family: "Pacifico", cursive;
+  color: var(--red);
+  font-size: 2.05rem;
+  letter-spacing: 0.2px;
+}
+
+.header p {
+  margin: 6px 0 0;
+  font-weight: 600;
+}

@@ -1,3 +1,5 @@
+import "./DayPicker.css";
+
 export default function DayPicker({ days, selectedDay, onSelectDay, labels }) {
     return (
     <section className="day-picker">

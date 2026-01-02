@@ -1,0 +1,22 @@
+.day-picker {
+  display: flex;
+  gap: 10px;
+  margin: 16px 0 18px;
+}
+
+.day-btn {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 999px;
+  border: 2px solid var(--black);
+  background: var(--paper);
+  color: var(--black);
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 0 rgba(17, 17, 17, 0.18);
+}
+
+.day-btn.active {
+  background: var(--red);
+  color: #fff;
+}

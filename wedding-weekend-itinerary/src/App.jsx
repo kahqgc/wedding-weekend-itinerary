@@ -1,5 +1,6 @@
 import "./App.css";
 import { useState } from "react";
+import Header from "./components/Header.jsx";
 import BottomNav from "./components/BottomNav.jsx";
 import ScheduleView from "./components/ScheduleView.jsx";
 import InfoView from "./components/InfoView.jsx";
@@ -11,13 +12,9 @@ function App() {
   const [activeTab, setActiveTab] = useState("schedule");
 
   return (
-    <div className="app">
-      <header className="header">
-        <h1>Vegas Weekend Itinerary</h1>
-        <p>Kayla & Chris • April 18, 2026</p>
-      </header>
-
+ <div className="app">
       <main className="main">
+        <Header />
         <section className="screen">
           {activeTab === "schedule" && <ScheduleView />}
           {activeTab === "info" && <InfoView />}

@@ -1,10 +1,27 @@
-html, body, #root {
-  height: 100%;
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --red: #c81e2b;
+  --black: #111111;
+  --paper: #ffffff;
+  --blush: #fde8ee;
+  --blush2: #fff6f8;
+  --line: rgba(17, 17, 17, 0.14);
+  --shadow: 0 10px 24px rgba(17, 17, 17, 0.12);
+  --shadow2: 0 6px 0 rgba(17, 17, 17, 0.12);
+}
+
+html,
+body {
+  overflow-x: hidden;
 }
 
 body {
   margin: 0;
-  overflow-y: auto;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
+  font-family: "Quicksand", system-ui, -apple-system, Segoe UI, Roboto, Arial,
+    sans-serif;
+  color: var(--black);
+  background: var(--blush);
 }
