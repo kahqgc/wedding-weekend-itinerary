@@ -1,31 +1,57 @@
 .event-card {
   display: flex;
+  position: relative;
   gap: 14px;
-  padding: 16px;
-  border-radius: 22px;
+  padding: 18px;
+  border-radius: 26px;
   background: var(--paper);
   border: 2px solid var(--black);
   box-shadow: var(--shadow2);
   margin-bottom: 14px;
 }
 
+.event-card.optional {
+  border-style: dashed;
+}
+
+.event-card.optional::after {
+  content: "*optional";
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #c81e2b;
+  opacity: 0.75;
+}
+
+
+.event-card.optional .event-time {
+  background: var(--blush);
+  color: var(--black);
+}
+
 /* time pill – soft blush tag */
 .event-time {
-  min-width: 104px;
-  align-self: flex-start;
+  min-width: 0;
   padding: 8px 12px;
-  border-radius: 14px;
+  border-radius: 999px;
   background: var(--blush2);
-  color: var(--black);
-  font-weight: 800;
-  font-size: 0.9rem;
+  color: var(--red);
+  font-weight: 900;
+  font-size: 0.95rem;
   text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* event text */
 .event-info h3 {
   margin: 0;
-  font-size: 1.05rem;
+  font-size: 1.12rem;
+  font-weight: 900;
   line-height: 1.25;
 }
 

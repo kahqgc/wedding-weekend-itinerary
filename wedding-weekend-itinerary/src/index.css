@@ -23,5 +23,5 @@ body {
   font-family: "Quicksand", system-ui, -apple-system, Segoe UI, Roboto, Arial,
     sans-serif;
   color: var(--black);
-  background: var(--blush);
+  background: #f6dfe5;
 }

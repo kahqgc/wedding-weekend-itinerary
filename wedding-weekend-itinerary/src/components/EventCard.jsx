@@ -3,7 +3,7 @@ import "./EventCard.css";
 export default function EventCard({event}){
     if (!event) return null;
     return (
-             <article className="event-card">
+             <article className={`event-card ${event.isOptional ? "optional" : ""}`}>
                     <div className="event-time">{event?.Time}</div>
 
                     <div className="event-info">

@@ -10,27 +10,27 @@
 
 /* doodle corner accents (simple + cute) */
 .header::before {
-  position: absolute;
-  padding-left: 10px;
-  color: rgba(200, 30, 43, 0.25);
-  font-size: 28px;
-  line-height: 1.5;
-}
-.header::before {
   content: "♦ ♣";
   top: 10px;
   left: 14px;
+  padding-left: 10px;
+  color: rgba(200, 30, 43, 0.22);
+  font-size: 26px;
+  line-height: 1;
+}
+.header::before {
 }
 
 .header h1 {
   margin: 0;
   font-family: "Pacifico", cursive;
   color: var(--red);
-  font-size: 2.05rem;
+  font-size: 2.25rem;
   letter-spacing: 0.2px;
 }
 
 .header p {
   margin: 6px 0 0;
   font-weight: 600;
+  opacity: 0.75;
 }

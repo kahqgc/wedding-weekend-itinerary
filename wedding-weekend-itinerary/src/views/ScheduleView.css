@@ -1,8 +1,14 @@
 /* Today / All toggle */
 .mode-toggle {
-  padding-top: 15px;
-  display: flex;
+  margin-top: 15px;
+  padding: 15px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.55);
+  border: 2px solid rgba(17, 17, 17, 0.18);
+  box-shadow: 0 10px 20px rgba(17, 17, 17, 0.08);
 }
 
 .mode-btn {

@@ -11,7 +11,7 @@
   border: 2px solid var(--black);
   background: var(--paper);
   color: var(--black);
-  font-weight: 700;
+  font-weight: 900;
   cursor: pointer;
   box-shadow: 0 4px 0 rgba(17, 17, 17, 0.18);
 }

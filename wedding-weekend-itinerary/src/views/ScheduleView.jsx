@@ -16,6 +16,8 @@ const DAY_LABELS = {
 
 // helpers
 const toISODate = (d) => d.toISOString().slice(0, 10); // YYYY-MM-DD
+const isYes = (value) => String(value || "").trim().toUpperCase() === "YES";
+
 
 export default function ScheduleView() {
   const [rows, setRows] = useState([]);
@@ -30,9 +32,15 @@ export default function ScheduleView() {
   }, []);
 
   // Only guest-facing events
-  const guestRows = useMemo(() => {
-    return rows.filter((r) => r.Who === "Everyone");
-  }, [rows]);
+const guestRows = useMemo(() => {
+  return rows
+    .filter((r) => r.Who === "Everyone")
+    .map((r) => ({
+      ...r,
+      isOptional: isYes(r.Optional), // <-- reads Optional column, YES = true
+    }));
+}, [rows]);
+
 
   // Build list of days available in sheet (excluding Monday if you don't want it)
   const dayOrder = ["Thursday", "Friday", "Saturday", "Sunday", "Monday"];
