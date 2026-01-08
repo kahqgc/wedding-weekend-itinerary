@@ -1,7 +1,6 @@
 .event-card {
-  display: flex;
+  display: block;
   position: relative;
-  gap: 14px;
   padding: 18px;
   border-radius: 26px;
   background: var(--paper);
@@ -14,23 +13,44 @@
   border-style: dashed;
 }
 
-.event-card.optional::after {
-  content: "*optional";
-  position: absolute;
-  top: 10px;
-  right: 14px;
-  font-size: 0.7rem;
-  font-weight: 800;
-  letter-spacing: 0.5px;
-  color: #c81e2b;
-  opacity: 0.75;
-}
-
 
 .event-card.optional .event-time {
   background: var(--blush);
   color: var(--black);
 }
+
+.event-top {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto; /* time | info | optional | chevron */
+  gap: 12px;
+  align-items: start;
+  width: 100%;
+}
+
+.event-expand {
+  border: 2px solid var(--black);
+  background: var(--paper);
+  border-radius: 999px;
+  height: 36px;
+  width: 36px;
+  cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: 0 4px 0 rgba(17, 17, 17, 0.12);
+}
+
+.event-expand:hover {
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.event-expand:active {
+  transform: translateY(1px);
+  box-shadow: 0 3px 0 rgba(17, 17, 17, 0.12);
+}
+
 
 /* time pill – soft blush tag */
 .event-time {
@@ -45,6 +65,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  white-space: nowrap;
 }
 
 /* event text */
@@ -66,4 +87,56 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+.event-details {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(17, 17, 17, 0.15);
+
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.optional-tag {
+  font-size: 0.75rem;
+  font-weight: 900;
+  color: var(--red);
+  opacity: 0.85;
+  padding-top: 6px;
+  white-space: nowrap;
+}
+
+.chevron {
+  width: 10px;
+  height: 10px;
+  border-right: 2.5px solid var(--black);
+  border-bottom: 2.5px solid var(--black);
+  transform: rotate(45deg);
+  transition: transform 200ms ease;
+}
+
+.event-expand.open .chevron {
+  transform: rotate(-135deg);
+}
+
+.detail-row {
+  background: var(--blush2);
+  border: 1px solid rgba(17, 17, 17, 0.12);
+  border-radius: 16px;
+  padding: 10px 12px;
+  margin-top: 10px;
+}
+
+.detail-label {
+  font-weight: 900;
+  font-size: 0.85rem;
+  opacity: 0.9;
+  margin-bottom: 4px;
+}
+
+.detail-value {
+  font-weight: 600;
+  opacity: 0.85;
+  line-height: 1.35;
 }
