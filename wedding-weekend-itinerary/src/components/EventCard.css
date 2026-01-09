@@ -148,7 +148,7 @@
 }
 
 .map-frame {
-  height: 120px; /* tweak: 110–150 depending on your taste */
+  height: 120px;
   width: 100%;
   background: rgba(255, 255, 255, 0.6);
 }
@@ -160,7 +160,7 @@
   display: block;
 }
 
-.map-meta {
+.map-details {
   display: flex;
   gap: 8px;
   align-items: center;
@@ -177,4 +177,22 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.calendar-btn {
+  width: 100%;
+  justify-content: center;
+
+  background: #ffffff;
+  color: var(--black);
+
+  border: 2px solid var(--black);
+  border-radius: 16px;
+
+  padding: 12px 14px;
+  font-weight: 900;
+  font-size: 0.95rem;
+
+  box-shadow: 0 4px 0 rgba(17, 17, 17, 0.12);
+  transition: transform 120ms ease, box-shadow 120ms ease;
 }

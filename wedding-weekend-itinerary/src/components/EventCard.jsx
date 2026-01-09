@@ -1,5 +1,6 @@
 import "./EventCard.css";
 import { useState } from "react";
+import { downloadICS } from "../utils/calendar";
 
 //helpers
 function getMapEmbedUrl(event) {
@@ -16,6 +17,8 @@ function getMapEmbedUrl(event) {
 export default function EventCard({ event }) {
   const [isOpen, setIsOpen] = useState(false);
   if (!event) return null;
+  const hasMap = Boolean(event?.Location || event?.Address || event?.MapsUrl || event?.MapUrl || event?.MapsLink);
+
 
   return (
     <article className={`event-card ${event.isOptional ? "optional" : ""}`}>
@@ -81,7 +84,7 @@ export default function EventCard({ event }) {
                 </div>
 
                 {label && (
-                  <div className="map-meta">
+                  <div className="map-details">
                     <span className="map-pin">📍</span>
                     <span className="map-text">{label}</span>
                   </div>
@@ -89,6 +92,15 @@ export default function EventCard({ event }) {
               </div>
             );
           })()}
+          {hasMap && (
+            <button
+              type="button"
+              className="calendar-btn"
+              onClick={() => downloadICS(event)}
+            >
+              📅 Add to Calendar
+            </button>
+          )}
         </div>
       )}
     </article>
