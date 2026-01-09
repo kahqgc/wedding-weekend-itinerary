@@ -1,0 +1,26 @@
+.event-details {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(17, 17, 17, 0.15);
+
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.calendar-btn {
+  width: 100%;
+  justify-content: center;
+
+  background: #ffffff;
+  color: var(--black);
+
+  border: 2px solid var(--black);
+  border-radius: 16px;
+
+  padding: 12px 14px;
+  font-weight: 900;
+  font-size: 0.95rem;
+
+  box-shadow: 0 4px 0 rgba(17, 17, 17, 0.12);
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
