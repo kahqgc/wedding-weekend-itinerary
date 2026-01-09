@@ -1,6 +1,18 @@
 import "./EventCard.css";
 import { useState } from "react";
 
+//helpers
+function getMapEmbedUrl(event) {
+  // Use Location + Address if present
+  const query = [event?.Location, event?.Address].filter(Boolean).join(", ");
+  if (!query) return "";
+
+  // Simple embed that doesn't require an API key
+  return `https://www.google.com/maps?q=${encodeURIComponent(
+    query
+  )}&output=embed`;
+}
+
 export default function EventCard({ event }) {
   const [isOpen, setIsOpen] = useState(false);
   if (!event) return null;
@@ -52,6 +64,31 @@ export default function EventCard({ event }) {
               </div>
             </div>
           )}
+          {(() => {
+            const embedUrl = getMapEmbedUrl(event);
+            const label = event?.Address || event?.Location; // something to show under the map
+            if (!embedUrl) return null;
+
+            return (
+              <div className="map-card">
+                <div className="map-frame">
+                  <iframe
+                    title="Map preview"
+                    src={embedUrl}
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  />
+                </div>
+
+                {label && (
+                  <div className="map-meta">
+                    <span className="map-pin">📍</span>
+                    <span className="map-text">{label}</span>
+                  </div>
+                )}
+              </div>
+            );
+          })()}
         </div>
       )}
     </article>
