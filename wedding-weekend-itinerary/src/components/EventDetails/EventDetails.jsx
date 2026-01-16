@@ -1,7 +1,7 @@
 import "./EventDetails.css";
-import { downloadICS } from "../utils/calendar";
-import DetailRow from "./DetailRow";
-import MapPreview from "./MapPreview";
+import { downloadICS } from "../../utils/calendar";
+import DetailRow from "../DetailRow/DetailRow.jsx";
+import MapPreview from "../MapPreview/MapPreview.jsx";
 
 export default function EventDetails({ event }) {
   const hasMap = Boolean(

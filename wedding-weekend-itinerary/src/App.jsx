@@ -1,7 +1,7 @@
 import "./App.css";
 import { useState } from "react";
-import Header from "./components/Header.jsx";
-import BottomNav from "./components/BottomNav.jsx";
+import Header from "./components/Header/Header.jsx";
+import BottomNav from "./components/BottomNav/BottomNav.jsx";
 import ScheduleView from "./views/ScheduleView.jsx";
 import InfoView from "./views/InfoView.jsx";
 import MapView from "./views/MapView.jsx";

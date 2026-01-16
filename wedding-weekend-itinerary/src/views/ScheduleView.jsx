@@ -1,8 +1,8 @@
 import "./ScheduleView.css";
 import { useEffect, useMemo, useState } from "react";
 import { fetchSheetRows } from "../api/fetchItineraryFromSheet";
-import DayPicker from "../components/DayPicker";
-import EventCard from "../components/EventCard";
+import DayPicker from "../components/DayPicker/DayPicker.jsx";
+import EventCard from "../components/EventCard/EventCard.jsx";
 
 const SHEET_TAB_NAME = "VEGAS_WEDDING_MASTER_SCHEDULE_SPA_FRIDAY";
 
@@ -16,14 +16,19 @@ const DAY_LABELS = {
 
 // helpers
 const toISODate = (d) => d.toISOString().slice(0, 10); // YYYY-MM-DD
-const isYes = (value) => String(value || "").trim().toUpperCase() === "YES";
-
+const isYes = (value) =>
+  String(value || "")
+    .trim()
+    .toUpperCase() === "YES";
+const getEventId = (r, i) =>
+  `${r.Day || ""}-${r.Date || ""}-${r.Time || ""}-${r.Event || ""}-${i}`;
 
 export default function ScheduleView() {
   const [rows, setRows] = useState([]);
   const [error, setError] = useState("");
   const [mode, setMode] = useState("today"); // "today" | "all"
   const [selectedDay, setSelectedDay] = useState(""); // set after load
+  const [openEventId, setOpenEventId] = useState(null);
 
   useEffect(() => {
     fetchSheetRows(SHEET_TAB_NAME)
@@ -31,16 +36,23 @@ export default function ScheduleView() {
       .catch((err) => setError(err.message || "Failed to load sheet"));
   }, []);
 
-  // Only guest-facing events
-const guestRows = useMemo(() => {
-  return rows
-    .filter((r) => r.Who === "Everyone")
-    .map((r) => ({
-      ...r,
-      isOptional: isYes(r.Optional), // <-- reads Optional column, YES = true
-    }));
-}, [rows]);
+  useEffect(() => {
+    setOpenEventId(null);
+  }, [mode]);
 
+  useEffect(() => {
+    setOpenEventId(null);
+  }, [selectedDay]);
+
+  // Only guest-facing events
+  const guestRows = useMemo(() => {
+    return rows
+      .filter((r) => r.Who === "Everyone")
+      .map((r) => ({
+        ...r,
+        isOptional: isYes(r.Optional), // <-- reads Optional column, YES = true
+      }));
+  }, [rows]);
 
   // Build list of days available in sheet (excluding Monday if you don't want it)
   const dayOrder = ["Thursday", "Friday", "Saturday", "Sunday", "Monday"];
@@ -49,7 +61,7 @@ const guestRows = useMemo(() => {
     const set = new Set(
       guestRows
         .filter((r) => r.Day !== "Monday" && r.Day !== "Thursday") // keep your exclusions
-        .map((r) => r.Day)
+        .map((r) => r.Day),
     );
 
     return [...set].sort((a, b) => dayOrder.indexOf(a) - dayOrder.indexOf(b));
@@ -132,9 +144,19 @@ const guestRows = useMemo(() => {
             <p className="empty">Nothing listed for guests this day yet.</p>
           ) : (
             <div className="event-list">
-              {visibleRows.map((r, i) => (
-                <EventCard key={`${r.Day}-${r.Time}-${i}`} event={r} />
-              ))}
+              {visibleRows.map((r, i) => {
+                const id = getEventId(r, i);
+                return (
+                  <EventCard
+                    key={id}
+                    event={r}
+                    isOpen={openEventId === id}
+                    onToggle={() =>
+                      setOpenEventId((curr) => (curr === id ? null : id))
+                    }
+                  />
+                );
+              })}
             </div>
           )}
         </section>
@@ -144,9 +166,19 @@ const guestRows = useMemo(() => {
             <div key={day} className="day-group">
               <h2>{day}</h2>
               <div className="event-list">
-                {(groupedByDay[day] || []).map((r, i) => (
-                  <EventCard key={`${r.Day}-${r.Time}-${i}`} event={r} />
-                ))}
+                {(groupedByDay[day] || []).map((r, i) => {
+                  const id = getEventId(r, i);
+                  return (
+                    <EventCard
+                      key={id}
+                      event={r}
+                      isOpen={openEventId === id}
+                      onToggle={() =>
+                        setOpenEventId((curr) => (curr === id ? null : id))
+                      }
+                    />
+                  );
+                })}
               </div>
             </div>
           ))}

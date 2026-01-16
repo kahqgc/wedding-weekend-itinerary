@@ -1,9 +1,7 @@
 import "./EventCard.css";
-import { useState } from "react";
-import EventDetails from "./EventDetails";
+import EventDetails from "../EventDetails/EventDetails.jsx";
 
-export default function EventCard({ event }) {
-  const [isOpen, setIsOpen] = useState(false);
+export default function EventCard({ event, isOpen, onToggle }) {
   if (!event) return null;
 
   return (
@@ -22,7 +20,7 @@ export default function EventCard({ event }) {
         <button
           type="button"
           className={`event-expand ${isOpen ? "open" : ""}`}
-          onClick={() => setIsOpen((prev) => !prev)}
+          onClick={onToggle}
           aria-expanded={isOpen}
         >
           <span className="chevron" />
