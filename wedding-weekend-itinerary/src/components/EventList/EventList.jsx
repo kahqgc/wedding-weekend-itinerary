@@ -1,3 +1,4 @@
+import "./EventList.css";
 import EventCard from "../EventCard/EventCard.jsx";
 import { getEventId } from "../../utils/scheduleUtils";
 
