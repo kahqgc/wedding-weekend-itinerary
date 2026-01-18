@@ -56,8 +56,6 @@ export default function ScheduleView() {
         labels={DAY_LABELS}
         onSelectDay={(day) => setSelectedDay(day)}
       />
-
-      {/* Render */}
       {mode === "today" ? (
         <section className="events">
           <h2>{selectedDay}</h2>

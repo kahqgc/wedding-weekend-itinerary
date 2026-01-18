@@ -8,22 +8,16 @@ export function useScheduleData(sheetTabName) {
   const [userSelectedDay, setUserSelectedDay] = useState("");
 
   useEffect(() => {
-    fetchSheetRows(sheetTabName)
-      .then(setRows)
-      .catch((err) => setError(err.message || "Failed to load sheet"));
+    fetchSheetRows(sheetTabName).then(setRows).catch((err) => setError(err.message || "Failed to load sheet"));
   }, [sheetTabName]);
 
   const guestRows = useMemo(() => {
-    return rows
-      .filter((r) => r.Who === "Everyone")
-      .map((r) => ({ ...r, isOptional: isYes(r.Optional) }));
+    return rows.filter((r) => r.Who === "Everyone").map((r) => ({ ...r, isOptional: isYes(r.Optional) }));
   }, [rows]);
 
   const uniqueDays = useMemo(() => {
     const set = new Set(
-      guestRows
-        .filter((r) => r.Day !== "Monday" && r.Day !== "Thursday")
-        .map((r) => r.Day),
+      guestRows.filter((r) => r.Day !== "Monday" && r.Day !== "Thursday").map((r) => r.Day),
     );
     return [...set].sort((a, b) => dayOrder.indexOf(a) - dayOrder.indexOf(b));
   }, [guestRows]);
@@ -40,9 +34,7 @@ export function useScheduleData(sheetTabName) {
   }, [guestRows, uniqueDays]);
 
   const selectedDay =
-    userSelectedDay && uniqueDays.includes(userSelectedDay)
-      ? userSelectedDay
-      : defaultDay;
+    userSelectedDay && uniqueDays.includes(userSelectedDay) ? userSelectedDay : defaultDay;
 
   const setSelectedDay = (day) => setUserSelectedDay(day);
 
