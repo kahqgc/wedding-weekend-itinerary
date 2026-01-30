@@ -8,7 +8,6 @@ export default function EventCard({ event, isOpen, onToggle }) {
     <article className={`event-card ${event.isOptional ? "optional" : ""}`}>
       <div className="event-top">
         <div className="event-time">{event?.Time}</div>
-
         <div className="event-info">
           <h3>{event?.Event}</h3>
           {event?.Location && (

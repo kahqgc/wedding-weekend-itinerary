@@ -5,6 +5,11 @@ import ModeToggle from "../components/ModeToggle/ModeToggle.jsx";
 import EventList from "../components/EventList/EventList.jsx";
 import { DAY_LABELS } from "../utils/scheduleUtils.js";
 import { useScheduleData } from "../hooks/useScheduleData.js";
+import {
+  parseStartDateTime,
+  formatCountdown,
+  mapsUrl,
+} from "../utils/scheduleTimeUtils";
 
 const SHEET_TAB_NAME = "VEGAS_WEDDING_MASTER_SCHEDULE_SPA_FRIDAY";
 
@@ -27,10 +32,35 @@ export default function ScheduleView() {
   const visibleRows = useMemo(() => {
     if (!selectedDay) return [];
 
-    if (mode === "today")
-      return guestRows.filter((r) => r.Day === selectedDay);
-      return guestRows.filter((r) => uniqueDays.includes(r.Day));
-    }, [guestRows, mode, selectedDay, uniqueDays]);
+    if (mode === "today") return guestRows.filter((r) => r.Day === selectedDay);
+    return guestRows.filter((r) => uniqueDays.includes(r.Day));
+  }, [guestRows, mode, selectedDay, uniqueDays]);
+
+  const upNextEvent = useMemo(() => {
+    if (guestRows.length === 0) return null;
+
+    const now = new Date();
+
+    // Only consider events that have a date
+    const withStart = guestRows
+      .map((r) => ({
+        ...r,
+        __start: parseStartDateTime(r.Date, r.Time),
+      }))
+      .filter((r) => r.__start && !Number.isNaN(r.__start.getTime()));
+
+    // Find the next event that hasn't started yet
+    const upcoming = withStart
+      .filter((r) => r.__start >= now)
+      .sort((a, b) => a.__start - b.__start);
+
+    return upcoming[0] || null;
+  }, [guestRows]);
+
+  const upNextCountdown = useMemo(() => {
+    if (!upNextEvent?.__start) return "";
+    return formatCountdown(upNextEvent.__start - new Date());
+  }, [upNextEvent]);
 
   // Group rows by day for "all" mode
   const groupedByDay = useMemo(() => {
@@ -56,6 +86,33 @@ export default function ScheduleView() {
         labels={DAY_LABELS}
         onSelectDay={(day) => setSelectedDay(day)}
       />
+            {/* Up Next */}
+      {upNextEvent && (
+        <section className="upnext">
+          <div className="upnext-banner">
+            Starts in: <span>{upNextCountdown}</span>
+          </div>
+
+          <article className="upnext-card">
+            <div className="upnext-title">{upNextEvent.Event}</div>
+            <div className="upnext-sub">
+              <strong>{upNextEvent.Time}</strong>
+              {upNextEvent.Location ? ` • ${upNextEvent.Location}` : ""}
+            </div>
+
+            {upNextEvent.Location && (
+              <a
+                className="upnext-maps"
+                href={mapsUrl(upNextEvent.Location)}
+                target="_blank"
+                rel="noreferrer"
+              >
+                📍 Open in Maps
+              </a>
+            )}
+          </article>
+        </section>
+      )}
       {mode === "today" ? (
         <section className="events">
           <h2>{selectedDay}</h2>
