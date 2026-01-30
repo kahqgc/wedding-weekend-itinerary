@@ -3,13 +3,10 @@ import { useEffect, useMemo, useState } from "react";
 import DayPicker from "../components/DayPicker/DayPicker.jsx";
 import ModeToggle from "../components/ModeToggle/ModeToggle.jsx";
 import EventList from "../components/EventList/EventList.jsx";
+import UpNext from "../components/UpNext/UpNext.jsx";
 import { DAY_LABELS } from "../utils/scheduleUtils.js";
 import { useScheduleData } from "../hooks/useScheduleData.js";
-import {
-  parseStartDateTime,
-  formatCountdown,
-  mapsUrl,
-} from "../utils/scheduleTimeUtils";
+import { parseStartDateTime,formatCountdown,} from "../utils/scheduleTimeUtils";
 
 const SHEET_TAB_NAME = "VEGAS_WEDDING_MASTER_SCHEDULE_SPA_FRIDAY";
 
@@ -87,32 +84,12 @@ export default function ScheduleView() {
         onSelectDay={(day) => setSelectedDay(day)}
       />
             {/* Up Next */}
-      {upNextEvent && (
-        <section className="upnext">
-          <div className="upnext-banner">
-            Starts in: <span>{upNextCountdown}</span>
-          </div>
-
-          <article className="upnext-card">
-            <div className="upnext-title">{upNextEvent.Event}</div>
-            <div className="upnext-sub">
-              <strong>{upNextEvent.Time}</strong>
-              {upNextEvent.Location ? ` • ${upNextEvent.Location}` : ""}
-            </div>
-
-            {upNextEvent.Location && (
-              <a
-                className="upnext-maps"
-                href={mapsUrl(upNextEvent.Location)}
-                target="_blank"
-                rel="noreferrer"
-              >
-                📍 Open in Maps
-              </a>
-            )}
-          </article>
-        </section>
-      )}
+      {upNextEvent && 
+        <UpNext
+          event={upNextEvent}
+          countdown={upNextCountdown}
+        />
+      }
       {mode === "today" ? (
         <section className="events">
           <h2>{selectedDay}</h2>
